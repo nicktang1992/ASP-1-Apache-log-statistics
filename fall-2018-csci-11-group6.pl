@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use List::Util qw( min max );
-use Statistics::Basic qw(:all);
 
 #read argument for filename
 my $filename = $ARGV[0];
@@ -63,15 +62,16 @@ while (my $row = <$fh>) {
 	
 	$count = $count+1;
 	
-	print "s1: ${1}\n";
-	print "s2: ${2}\n\n";
+	print "date: ${1}\n";
+	print "status code: ${2}\n\n";
 	@counts[$1-1]++;
   }
 
 }
 
 for($index = 0; $index < 31 ; $index++){
-	print "$index = $counts[$index]\n";
+	my $tmp = $index+1;
+	print "$tmp = $counts[$index]\n";
 }
 
 print "row count: ${count}\n";
@@ -81,15 +81,65 @@ print "$arrSize\n";
 #statistics 101
 my $min = min @counts;
 my $max = max @counts;
-
-#TO-DO:
-#Implement Average
-#Implement Mean
-#Implement Standard Deviation
+my $average = average(@counts);
+my $median = median(@counts);
+my $sd = standardDeviation($average,@counts);
 
 print "minimum: $min\n";
 print "maximum: $max\n";
-
+print "average: $average\n";
+print "median: $median\n";
+print "standard deviation: $sd\n";
 #TO-DO:
 #Print results
 
+sub average{
+	my @data = @_;
+	my $sum = 0;
+	print "@data\n";
+	
+	for my $i (0 .. $#data){
+		$sum = $sum + @data[$i];
+	}
+	
+	print "$sum\n";
+	print scalar @data;
+	print "\n";
+	my $average = $sum/scalar @data;
+	return $average;
+}
+
+
+#need to pass integer before array. array before integer does not work. probably parameter of sub is just one giant concatenation of arrays.
+#can be solved by passing reference. wont do it here. 
+sub standardDeviation {
+	my ($mean,@data) = (@_);
+	print "@data\n";
+	print "$mean\n";
+	
+	my $varianceSum = 0;
+	#calculation
+	for my $i (0 .. $#data){
+		my $tmp = $data[$i] - $mean;
+		$tmp = $tmp*$tmp;
+		$varianceSum = $varianceSum + $tmp;
+	}
+	$varianceSum = $varianceSum/scalar @data;
+	my $sd = sqrt($varianceSum);
+	return $sd;
+}
+
+#got it form INTERNET. written by Jul 2005
+sub median
+{
+    my @vals = sort {$a <=> $b} @_;
+    my $len = @vals;
+    if($len%2) #odd
+    {
+        return $vals[int($len/2)];
+    }
+    else #even
+    {
+        return ($vals[int($len/2)-1] + $vals[int($len/2)])/2;
+    }
+}

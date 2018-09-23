@@ -6,3 +6,6 @@ my $text = "test extraction test";
 $text=~m/(extraction)/;
 
 print "${1}";
+
+my @myArray=();
+

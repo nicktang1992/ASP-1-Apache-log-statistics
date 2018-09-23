@@ -82,9 +82,14 @@ print "$arrSize\n";
 my $min = min @counts;
 my $max = max @counts;
 
+#TO-DO:
+#Implement Average
+#Implement Mean
+#Implement Standard Deviation
 
 print "minimum: $min\n";
 print "maximum: $max\n";
 
-
+#TO-DO:
+#Print results
 

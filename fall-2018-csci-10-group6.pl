@@ -49,7 +49,7 @@ my $pattern = qq/\^
 	.*\$/;
 
  
-print $pattern;
+#print $pattern;
 my $count = 0;
 
 #read file line by line till EOF
@@ -58,25 +58,25 @@ while (my $row = <$fh>) {
   
   #matching line with pattern
   if ($row =~ /${pattern}/x ){
-    print "$row\n";
+    #print "$row\n";
 	
 	$count = $count+1;
 	
-	print "date: ${1}\n";
-	print "status code: ${2}\n\n";
-	@counts[$1-1]++;
+	#print "date: ${1}\n";
+	#print "status code: ${2}\n\n";
+	$counts[$1-1]++;
   }
 
 }
 
 for($index = 0; $index < 31 ; $index++){
 	my $tmp = $index+1;
-	print "$tmp = $counts[$index]\n";
+	#print "$tmp = $counts[$index]\n";
 }
 
-print "row count: ${count}\n";
-my $arrSize = scalar @counts;
-print "$arrSize\n";
+#print "row count: ${count}\n";
+#my $arrSize = scalar @counts;
+#print "$arrSize\n";
 
 #statistics 101
 my $min = min @counts;
@@ -96,15 +96,15 @@ print "standard deviation: $sd\n";
 sub average{
 	my @data = @_;
 	my $sum = 0;
-	print "@data\n";
+	#print "@data\n";
 	
 	for my $i (0 .. $#data){
-		$sum = $sum + @data[$i];
+		$sum = $sum + $data[$i];
 	}
 	
-	print "$sum\n";
-	print scalar @data;
-	print "\n";
+	#print "$sum\n";
+	#print scalar @data;
+	#print "\n";
 	my $average = $sum/scalar @data;
 	return $average;
 }
@@ -114,8 +114,8 @@ sub average{
 #can be solved by passing reference. wont do it here. 
 sub standardDeviation {
 	my ($mean,@data) = (@_);
-	print "@data\n";
-	print "$mean\n";
+	#print "@data\n";
+	#print "$mean\n";
 	
 	my $varianceSum = 0;
 	#calculation

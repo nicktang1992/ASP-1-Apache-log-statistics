@@ -87,8 +87,8 @@ my $sd = standardDeviation($average,@counts);
 
 print "minimum: $min\n";
 print "maximum: $max\n";
-print "average: $average\n";
 print "median: $median\n";
+print "average: $average\n";
 print "standard deviation: $sd\n";
 #TO-DO:
 #Print results
